@@ -6,15 +6,15 @@ class TinyDB():
         self.count = 0
         self.lock = ReadWriteLock()
     def get(self):
-        self.lock.acquire_read()
+        self.lock.r_acquire()
         count = self.count
-        self.lock.release_read()
+        self.lock.r_release()
         return count
 
     def increase(self):
-        self.lock.acquire_write()
+        self.lock.w_acquire()
         self.count += 1
-        self.lock.release_write()
+        self.lock.w_release()
         return self.count
 
 class MyTestCase(unittest.TestCase):

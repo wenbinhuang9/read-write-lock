@@ -13,7 +13,7 @@ class ReadWriteLock():
         self.read_cond = Condition()
         self.write_cond = Condition()
 
-    def acquire_read(self):
+    def r_acquire(self):
         try:
             self.mutex.acquire()
             if self.mode == READ_MODE:
@@ -30,7 +30,7 @@ class ReadWriteLock():
         finally:
             self.mutex.release()
 
-    def release_read(self):
+    def r_release(self):
         try:
             self.mutex.acquire()
 
@@ -47,7 +47,7 @@ class ReadWriteLock():
             self.mutex.release()
 
 
-    def acquire_write(self):
+    def w_acquire(self):
         self.mutex.acquire()
 
         if self.mode == READ_MODE or  self.mode == WRITE_MODE:
@@ -57,7 +57,7 @@ class ReadWriteLock():
 
         self.mutex.release()
 
-    def release_write(self):
+    def w_release(self):
         self.mutex.acquire()
 
         if self.mode == WRITE_MODE:
